@@ -1,0 +1,19 @@
+{
+  "name": "sit314-project-iot",
+  "version": "1.0.0",
+  "description": "Smart Light Solution using IoT",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthonyP128/SIT314-Project-IOT.git"
+  },
+  "author": "Anthony Papoutsis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnthonyP128/SIT314-Project-IOT/issues"
+  },
+  "homepage": "https://github.com/AnthonyP128/SIT314-Project-IOT#readme"
+}
