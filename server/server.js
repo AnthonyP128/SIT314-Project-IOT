@@ -14,7 +14,8 @@ app.listen(3000, () => {
 });
 
 app.use('/', express.static('../client', options));
-app.use(express.json())
+app.use(express.json({limit: '25mb'}));
+app.use(express.urlencoded({limit: '25mb'}));
 
 app.post('/api/addApartment', async (req, res) => {
     const {apartmentID, clientID, image, lightOne, lightTwo, lightThree} = req.body;

@@ -1,12 +1,23 @@
- // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 const addApartment = document.getElementById("addApartment");
 addApartment.addEventListener("click", addRoom);
+
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result); 
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
+}
 
 async function addRoom(event) {
     event.preventDefault();
     const apartmentID = document.getElementById("iApartmentID").value;
     const clientID = document.getElementById("iClientID").value;
-    const image = document.getElementById("iImage").value;
+
+    let image = document.getElementById("iImage").files[0];
+    image = await getBase64(image);
+
     const lightOne = document.getElementById("iLOne").value;
     const lightTwo = document.getElementById("iLTwo").value;
     const lightThree = document.getElementById("iLThree").value;
@@ -78,7 +89,10 @@ async function updateApartment(event) {
     event.preventDefault();
     const apartmentID = document.getElementById("uApartmentID").value;
     const clientID = document.getElementById("uClientID").value;
-    const image = document.getElementById("uImage").value;
+
+    let image = document.getElementById("iImage").files[0];
+    image = await getBase64(image);
+
     const lightOne = document.getElementById("uLOne").value;
     const lightTwo = document.getElementById("uLTwo").value;
     const lightThree = document.getElementById("uLThree").value;
