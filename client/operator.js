@@ -13,7 +13,6 @@ function getBase64(file) {
 async function addRoom(event) {
     event.preventDefault();
     const apartmentID = document.getElementById("iApartmentID").value;
-    const clientID = document.getElementById("iClientID").value;
 
     let image = document.getElementById("iImage").files[0];
     image = await getBase64(image);
@@ -22,7 +21,7 @@ async function addRoom(event) {
     const lightTwo = document.getElementById("iLTwo").value;
     const lightThree = document.getElementById("iLThree").value;
 
-    console.log(apartmentID, clientID, image, lightOne, lightTwo, lightThree)
+    console.log(apartmentID, image, lightOne, lightTwo, lightThree)
 
     const result = await fetch('/api/addApartment', {
         method: 'POST',
@@ -31,7 +30,6 @@ async function addRoom(event) {
         },
         body: JSON.stringify({
             apartmentID,
-            clientID,
             image,
             lightOne,
             lightTwo,
@@ -88,7 +86,6 @@ updateA.addEventListener("click", updateApartment);
 async function updateApartment(event) {
     event.preventDefault();
     const apartmentID = document.getElementById("uApartmentID").value;
-    const clientID = document.getElementById("uClientID").value;
 
     let image = document.getElementById("iImage").files[0];
     image = await getBase64(image);
@@ -97,7 +94,7 @@ async function updateApartment(event) {
     const lightTwo = document.getElementById("uLTwo").value;
     const lightThree = document.getElementById("uLThree").value;
 
-    console.log(apartmentID, clientID, image, lightOne, lightTwo, lightThree)
+    console.log(apartmentID, image, lightOne, lightTwo, lightThree)
 
     const result = await fetch('/api/updateApartment', {
         method: 'POST',
@@ -106,7 +103,6 @@ async function updateApartment(event) {
         },
         body: JSON.stringify({
             apartmentID,
-            clientID,
             image,
             lightOne,
             lightTwo,
