@@ -35,11 +35,17 @@ p {
   max-width: 300px;
   margin-top: 150px;
 }
+.img #apartment {
+  max-height: 500px;
+  max-width: 500px;
+  margin-left: 100px;
+  margin-top: 10px;
+}
 .lightOne {
   position: fixed;
   right: 150px;
   margin-left: auto;
-  margin-top: -250px;
+  margin-top: -300px;
   width: 200px;
   height: 120px;
 }
@@ -47,7 +53,7 @@ p {
   position: fixed;
   right: 150px;
   margin-left: auto;
-  margin-top: -100px;
+  margin-top: -150px;
   width: 200px;
   height: 120px;
 }
@@ -55,7 +61,7 @@ p {
   position: fixed;
   right: 150px;
   margin-left: auto;
-  margin-top: 50px;
+  margin-top: 0px;
   width: 200px;
   height: 120px;
 }

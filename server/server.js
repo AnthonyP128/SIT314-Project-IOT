@@ -1,20 +1,25 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const socket = require('socket.io');
+const server = app.listen(3000);
 const jwt = require('jsonwebtoken');
 const Apartment = require('./models/apartment');
 const Client = require('./models/client');
 require('dotenv').config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Variables for user login, for sockets
+let user;
+let apartment;
+let apartmentID
+let image;
+
 let token;
+let io = socket(server);
 var options = {index: "operator.html"}
 
 mongoose.connect(process.env.API_KEY)
-
-app.listen(3000, () => {
-    console.log('listening on port 3000');
-});
 
 app.use('/', express.static('../client', options));
 app.use(express.json({limit: '25mb'}));
@@ -78,7 +83,10 @@ app.post('/api/updatePerson', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     const {username, phone} = req.body;
-    const user = await Client.findOne({ username }).lean();
+    user = await Client.findOne({ username }).lean();
+    apartmentID = user.apartmentID;
+    apartment = await Apartment.findOne({ apartmentID }).lean();
+    image = apartment.image;
 
     if(!user) {
         return res.json({ status: 'error', error: 'Inavlid Username' });
@@ -98,3 +106,39 @@ app.post('/api/login', async (req, res) => {
     }
     res.json({ status: 'error', data: 'error' });
 });
+
+io.sockets.on('connection', newConnection)
+function newConnection(socket) {
+    console.log('new connection: ' + socket.id);
+    io.sockets.emit("image", image)
+    socket.on("l1", function(data) {
+        console.log("light One: ", data);
+        let change = String(data);
+        Apartment.updateOne({apartmentID: apartmentID}, {lightOne: change}, (err, data) => {
+            if (err){
+                console.log(err);
+            }
+            //console.log(data)
+        });
+    })
+    socket.on("l2", function(data) {
+        console.log("light Two: ", data);
+        let change = String(data);
+        Apartment.updateOne({apartmentID: apartmentID}, {lightTwo: change}, (err, data) => {
+            if (err){
+                console.log(err);
+            }
+            //console.log(data)
+        });
+    })
+    socket.on("l3", function(data) {
+        console.log("light Three: ", data);
+        let change = String(data);
+        Apartment.updateOne({apartmentID: apartmentID}, {lightThree: change}, (err, data) => {
+            if (err){
+                console.log(err);
+            }
+            //console.log(data)
+        });
+    })
+}

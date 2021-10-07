@@ -87,7 +87,7 @@ async function updateApartment(event) {
     event.preventDefault();
     const apartmentID = document.getElementById("uApartmentID").value;
 
-    let image = document.getElementById("iImage").files[0];
+    let image = document.getElementById("uImage").files[0];
     image = await getBase64(image);
 
     const lightOne = document.getElementById("uLOne").value;
